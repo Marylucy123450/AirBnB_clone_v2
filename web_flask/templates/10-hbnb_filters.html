@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HBNB</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/3-footer.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/3-header.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/4-common.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/6-filters.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="/">HBNB</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="title_box">
+            <h1>Places</h1>
+        </div>
+        <div class="filters">
+            <h2>Filters</h2>
+            <div class="filter" id="amenity">
+                <div class="popover">
+                    <h3>Amenities</h3>
+                    <div class="amenities">
+                        {% for amenity in amenities | sort(attribute='name') %}
+                            <input type="checkbox" name="amenity" id="{{ amenity.id }}">
+                            <label for="{{ amenity.id }}">{{ amenity.name }}</label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="filter" id="state">
+                <div class="popover">
+                    <h3>States</h3>
+                    <div class="locations">
+                        {% for state in states | sort(attribute='name') %}
+                            <input type="checkbox" name="state" id="{{ state.id }}">
+                            <label for="{{ state.id }}">{{ state.name }}</label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="filter" id="city">
+                <div class="popover">
+                    <h3>Cities</h3>
+                    <div class="locations">
+                        {% for city in cities | sort(attribute='name') %}
+                            <input type="checkbox" name="city" id="{{ city.id }}">
+                            <label for="{{ city.id }}">{{ city.name }}</label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">Holberton School | Juan Camilo Acevedo Villalobos</p>
+        </div>
+    </footer>
+</body>
+</html>

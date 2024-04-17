@@ -1,0 +1,117 @@
+#!/usr/bin/python3
+
+
+Fabric is a Python library and command-line tool for streamlining the use of
+SSH for application deployment or systems administration tasks. It provides
+a basic suite of operations for executing local or remote shell commands
+ (normally or via sudo) and uploading/downloading files, as well as auxiliary
+  functionality such as prompting the running user for input, or aborting
+   execution. This concept is important: execute commands locally or remotely.
+   Locally means in your laptop (physical laptop or inside your Vagrant),
+   and Remotely means on your server(s). Fabric is taking care of all network
+   connections (SSH, SCP etc.), it’s an easy tool for transferring, executing,
+   etc. commands from locale to a remote server.
+
+
+
+pip3 uninstall Fabric
+
+sudo apt-get install libffi-dev
+sudo apt-get install libssl-dev
+sudo apt-get install build-essential
+sudo apt-get install python3.4-dev
+sudo apt-get install libpython3-dev
+pip3 install pyparsing
+pip3 install appdirs
+pip3 install cryptography==2.8
+pip3 install bcrypt==3.1.7
+pip3 install PyNaCl==1.3.0
+pip3 install Fabric3==1.14.post1
+
+
+
+sudo vi /etc/nginx/sites-available/default
+
+
+# Default server configuration
+#
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	root /var/www/html;
+	index index.html index.htm index.nginx-debian.html;
+
+	server_name _;
+
+	# Add alias for serving web_static content
+	location /hbnb_static/ {
+		alias /data/web_static/current/;
+	}
+
+	# Add custom header
+	add_header X-Served-By $hostname;
+
+	# Add redirect for /redirect_me
+	location /redirect_me {
+		return 301 https://github.com/Isaac-Ndirangu-Muturi-749;
+	}
+
+	# Add custom error page redirection
+	error_page 404 /custom_404.html;
+	location = /custom_404.html {
+		root /usr/share/nginx/html;
+		internal;
+	}
+
+	# Add alias for serving web_static content
+	location /hbnb_static {
+		alias /data/web_static/current;
+	}
+}
+
+
+fab -f 2-do_deploy_web_static.py do_deploy:archive_path=versions/web_static_20240315164536.tgz
+
+
+curl 35.153.193.23/hbnb_static/0-index.html
+
+env.hosts = ['35.153.193.23', '54.146.94.67']
+
+
+echo 'all City' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
+
+
+
+
+
+echo 'create City state_id="b828f287-7a48-45b8-ada5-38cc9e4b9231" name="San_Jose"' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
+
+
+
+
+
+echo 'create Place city_id="4b457e66-c7c8-4f63-910f-fd91c3b7140b" user_id="4f3f4b42-a4c3-4c20-a492-efff10d00c0b" name="Lovely_place" number_rooms=3 number_bathrooms=1 max_guest=6 price_by_night=120 latitude=37.773972 longitude=-122.431297' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
+
+
+echo 'create City state_id="95a5abab-aa65-4861-9bc6-1da4a36069aa" name="San_Jose"' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
+(hbnb) a7db3cdc-30e0-4d80-ad8c-679fe45343ba
+
+
+
+
+echo 'create Place city_id="6e6b8813-be23-419b-a2f2-70d30049b1a1" user_id="479fe614-4ca3-449b-a513-0805b3d0376d" name="Lovely_place" number_rooms=3 number_bathrooms=1 max_guest=6 price_by_night=120 latitude=37.773972 longitude=-122.431297' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
+
+echo 'create Review place_id="38a98ee9-6ef0-4830-b4a0-ed2e68cdc42e" user_id="479fe614-4ca3-449b-a513-0805b3d0376d" text="Amazing_place,_huge_kitchen"' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
+
+hbnb_dev_pwd
+
+hbnb_test_pwd
+
+
+
+mysql_config_editor set --login-path=mysql_login_path --socket=/var/run/mysqld/mysqld.sock
+
+
+
+mysql -u root -p -e "select @@socket"
